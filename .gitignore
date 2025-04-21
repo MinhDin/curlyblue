@@ -3,3 +3,4 @@ Logs
 /UnityCurlyBlue/CurlyBlue/Temp
 /UnityCurlyBlue/CurlyBlue/UserSettings
 *.csproj
+*.sln
