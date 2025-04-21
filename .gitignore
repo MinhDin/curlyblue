@@ -2,5 +2,7 @@ Logs
 /UnityCurlyBlue/CurlyBlue/Library
 /UnityCurlyBlue/CurlyBlue/Temp
 /UnityCurlyBlue/CurlyBlue/UserSettings
+/UnityCurlyBlue/CurlyBlue/obj/Debug
 *.csproj
+*.sln
 *.sln
