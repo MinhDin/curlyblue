@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5c24d9468a1f94ab65ea2745c4b5aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CharacterPrefab: {fileID: -4399147774224878577, guid: c0d33df9e86fb0047883ff5dedf5317f, type: 3}
+  CameraPrefab: {fileID: 1024636192357939498, guid: f1cb36e750745044eb72cea52a3e2767, type: 3}
+  <CurrentState>k__BackingField: 0

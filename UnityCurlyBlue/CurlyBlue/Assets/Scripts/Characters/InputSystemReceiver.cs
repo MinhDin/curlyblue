@@ -11,8 +11,16 @@ namespace CurlyBlue
         public CharacterInputData CharacterInputData;
         public Camera Camera; // Move input is relative to camera
 
+        public void SetData(CharacterInputData characterInputData, Camera camera)
+        {
+            CharacterInputData = characterInputData;
+            Camera = camera;
+        }
+        
         public void OnMove(InputValue value)
         {
+            if(CharacterInputData == null) return;
+            
             var rawInput = value.Get<Vector2>();
             CharacterInputData.MoveRaw = rawInput;
             RefreshMoveWorld();
@@ -20,15 +28,21 @@ namespace CurlyBlue
 
         public void OnLook(InputValue value)
         {
+            if(CharacterInputData == null) return;
+            
             CharacterInputData.Look = value.Get<Vector2>();
             RefreshMoveWorld();
         }
 
-        public void OnJump(InputValue value) => CharacterInputData.Jump = value.isPressed;
+        public void OnJump(InputValue value)
+        {
+            if(CharacterInputData == null) return;
+            CharacterInputData.Jump = value.isPressed;
+        }
 
         public void OnSprint(InputValue value)
         {
-            Debug.Log($"OnSprint: {value.isPressed}");
+            if(CharacterInputData == null) return;
             CharacterInputData.Sprint = value.isPressed;
         }
 

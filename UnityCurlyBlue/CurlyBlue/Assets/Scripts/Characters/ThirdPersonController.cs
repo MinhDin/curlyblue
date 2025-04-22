@@ -29,14 +29,14 @@ namespace CurlyBlue
         private float _fallTimeoutDelta;
         private float _jumpTimeoutDelta;
         
-        void Update()
+        public void ManualUpdate(float deltaTime)
         {
-            JumpAndGravity();
-            GroundedCheck();
-            Move();
+            JumpAndGravity(deltaTime);
+            GroundedCheck(deltaTime);
+            Move(deltaTime);
         }
 
-        private void JumpAndGravity()
+        private void JumpAndGravity(float deltaTime)
         {
             if (ControlData.IsGrounded)
             {
@@ -51,7 +51,7 @@ namespace CurlyBlue
                     ControlData.SpeedY = Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y);
                 }
 
-                if (_jumpTimeoutDelta >= 0.0f) _jumpTimeoutDelta -= Time.deltaTime;
+                if (_jumpTimeoutDelta >= 0.0f) _jumpTimeoutDelta -= deltaTime;
             }
             else
             {
@@ -59,19 +59,19 @@ namespace CurlyBlue
                 InputData.Jump        = false;       // If we are not grounded, do not jump
                 
                 // Fall timeout
-                if (_fallTimeoutDelta >= 0.0f) _fallTimeoutDelta -= Time.deltaTime;
-                else ControlData.SpeedY += Physics.gravity.y * Time.deltaTime;
+                if (_fallTimeoutDelta >= 0.0f) _fallTimeoutDelta -= deltaTime;
+                else ControlData.SpeedY                          += Physics.gravity.y * deltaTime;
             }
         }
 
-        private void GroundedCheck()
+        private void GroundedCheck(float deltaTime)
         {
             var position       = transform.position;
             var spherePosition = new Vector3(position.x, position.y - GroundedOffset, position.z);
             ControlData.IsGrounded = Physics.CheckSphere(spherePosition, 0.28f, GroundLayers, QueryTriggerInteraction.Ignore);
         }
         
-        private void Move()
+        private void Move(float deltaTime)
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
             var targetSpeed = InputData.MoveRaw == Vector2.zero ? 0 : (InputData.Sprint ? SprintSpeed : MoveSpeed);
@@ -81,7 +81,7 @@ namespace CurlyBlue
             if (ControlData.Speed < targetSpeed - speedOffset || ControlData.Speed > targetSpeed + speedOffset)
             {
                 // creates curved result rather than a linear one giving a more organic speed change
-                ControlData.Speed = Mathf.Lerp(ControlData.Speed, targetSpeed, Time.deltaTime * MoveAccelerateSpeed);
+                ControlData.Speed = Mathf.Lerp(ControlData.Speed, targetSpeed, deltaTime * MoveAccelerateSpeed);
             }
             else
             {
@@ -91,7 +91,8 @@ namespace CurlyBlue
             if (InputData.MoveWorld != Vector3.zero) ControlData.RotationY = Quaternion.LookRotation(InputData.MoveWorld).eulerAngles.y;
             
             // move the player
-            Controller.Move(InputData.MoveWorld.normalized * (ControlData.Speed * Time.deltaTime) + new Vector3(0.0f, ControlData.SpeedY, 0.0f) * Time.deltaTime);
+            Debug.Log($"Move {InputData.MoveWorld.normalized                    * (ControlData.Speed * deltaTime) + new Vector3(0.0f, ControlData.SpeedY, 0.0f) * deltaTime}");
+            Controller.Move(InputData.MoveWorld.normalized * (ControlData.Speed * deltaTime) + new Vector3(0.0f, ControlData.SpeedY, 0.0f) * deltaTime);
         }
     }
 }
