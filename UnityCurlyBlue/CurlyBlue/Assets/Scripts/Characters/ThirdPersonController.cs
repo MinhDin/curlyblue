@@ -4,7 +4,6 @@ using UnityEngine.Serialization;
 
 namespace CurlyBlue
 {
-    
     /// <summary> Read CharacterInput and move CharacterController accordingly </summary>
     public class ThirdPersonController : MonoBehaviour
     {
@@ -26,11 +25,9 @@ namespace CurlyBlue
         [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
         public float JumpTimeout = 0.50f;
         public LayerMask GroundLayers;
-
-        const   float RotationSmoothTime = 0.12f;
+        
         private float _fallTimeoutDelta;
         private float _jumpTimeoutDelta;
-        private float _rotationVelocity;
         
         void Update()
         {
@@ -91,11 +88,8 @@ namespace CurlyBlue
                 ControlData.Speed = targetSpeed;
             }
             
-            if (InputData.MoveWorld != Vector3.zero) ControlData.RotationY = Quaternion.LookRotation(InputData.MoveWorld).y;
+            if (InputData.MoveWorld != Vector3.zero) ControlData.RotationY = Quaternion.LookRotation(InputData.MoveWorld).eulerAngles.y;
             
-            var rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, ControlData.RotationY, ref _rotationVelocity, RotationSmoothTime);
-            transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-
             // move the player
             Controller.Move(InputData.MoveWorld.normalized * (ControlData.Speed * Time.deltaTime) + new Vector3(0.0f, ControlData.SpeedY, 0.0f) * Time.deltaTime);
         }

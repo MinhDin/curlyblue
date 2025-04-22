@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace CurlyBlue
 {
+    /// <summary> Rotate around character </summary>
     public class ThirdPersonCamera : MonoBehaviour
     {
         public Transform            CameraLookAt;
