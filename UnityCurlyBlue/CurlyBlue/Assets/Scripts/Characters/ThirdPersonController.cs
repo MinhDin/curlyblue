@@ -90,8 +90,6 @@ namespace CurlyBlue
             
             if (InputData.MoveWorld != Vector3.zero) ControlData.RotationY = Quaternion.LookRotation(InputData.MoveWorld).eulerAngles.y;
             
-            // move the player
-            Debug.Log($"Move {InputData.MoveWorld.normalized                    * (ControlData.Speed * deltaTime) + new Vector3(0.0f, ControlData.SpeedY, 0.0f) * deltaTime}");
             Controller.Move(InputData.MoveWorld.normalized * (ControlData.Speed * deltaTime) + new Vector3(0.0f, ControlData.SpeedY, 0.0f) * deltaTime);
         }
     }

@@ -63,10 +63,5 @@ namespace CurlyBlue
             if (lfAngle > 360f) lfAngle  -= 360f;
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
         }
-        
-        private void OnApplicationFocus(bool hasFocus)
-        {
-            //Cursor.lockState = hasFocus ? CursorLockMode.Locked : CursorLockMode.None;
-        }
     }
 }

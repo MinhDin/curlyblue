@@ -1747,6 +1747,7 @@ GameObject:
   - component: {fileID: 9079348995575674139}
   - component: {fileID: 8595501309602864581}
   - component: {fileID: 1190691952341935607}
+  - component: {fileID: 8085990789678705757}
   - component: {fileID: 1359039703681559750}
   - component: {fileID: 2186192670209208504}
   m_Layer: 6
@@ -1787,6 +1788,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InputData: {fileID: 8595501309602864581}
   ControlData: {fileID: 1190691952341935607}
+  GameData: {fileID: 8085990789678705757}
   Controller: {fileID: 9120358696730323628}
 --- !u!143 &9079348995575674139
 CharacterController:
@@ -1825,11 +1827,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95b2bbad14570f84aad7447987656066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MoveRaw>k__BackingField: {x: 0, y: 0}
-  <MoveWorld>k__BackingField: {x: 0, y: 0, z: 0}
-  <Look>k__BackingField: {x: 0, y: 0}
-  <Jump>k__BackingField: 0
-  <Sprint>k__BackingField: 0
+  _MoveRaw: {x: 0, y: 0}
+  _MoveWorld: {x: 0, y: 0, z: 0}
+  _Look: {x: 0, y: 0}
+  _Jump: 0
+  _Sprint: 0
 --- !u!114 &1190691952341935607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1842,11 +1844,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738617f16a786564196e80f1581c4a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <IsGrounded>k__BackingField: 0
-  <Speed>k__BackingField: 0.06
-  <SpeedY>k__BackingField: 0
-  <Accelerate>k__BackingField: {x: 0, y: 0, z: 0}
-  <RotationY>k__BackingField: 0
+  _IsGrounded: 0
+  _Speed: 0
+  _SpeedY: 0
+  _Accelerate: {x: 0, y: 0, z: 0}
+  _RotationY: 0
+--- !u!114 &8085990789678705757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5393719478887863104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7936b273f0cfd284d81ee7be95b4eb1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Name: 
+  _Score: 0
+  _HeadCostume: 0
 --- !u!114 &1359039703681559750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1867,6 +1884,7 @@ MonoBehaviour:
   - {fileID: -4399147774224878577}
   - {fileID: 8595501309602864581}
   - {fileID: 1190691952341935607}
+  - {fileID: 8085990789678705757}
   - {fileID: 2186192670209208504}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &2186192670209208504

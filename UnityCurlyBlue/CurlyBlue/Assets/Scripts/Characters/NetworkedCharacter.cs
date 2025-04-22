@@ -7,6 +7,7 @@ namespace CurlyBlue
 	{
 		public CharacterInputData    InputData;
 		public CharacterControlData  ControlData;
+		public CharacterGameData     GameData;
 		public ThirdPersonController Controller;
 		
 		public override void FixedUpdateNetwork()

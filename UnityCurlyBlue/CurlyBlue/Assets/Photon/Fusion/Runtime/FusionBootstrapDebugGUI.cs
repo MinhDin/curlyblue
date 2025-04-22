@@ -1,3 +1,4 @@
+
 namespace Fusion {
   using System;
   using UnityEngine;
@@ -16,7 +17,7 @@ namespace Fusion {
     /// </summary>
     [InlineHelp]
     public bool EnableHotkeys;
-
+    public string CharacterName;
     /// <summary>
     /// The GUISkin to use as the base for the scalable in-game UI.
     /// </summary>
@@ -190,10 +191,9 @@ namespace Fusion {
               nds.DefaultRoomName = GUILayout.TextField(nds.DefaultRoomName, 25, GUILayout.Height(height));
             }
             GUILayout.EndHorizontal();
-
-            if (GUILayout.Button(EnableHotkeys ? "Start Single Player (I)" : "Start Single Player", GUILayout.Height(height))) {
-              nds.StartSinglePlayer();
-            }
+            // if (GUILayout.Button(EnableHotkeys ? "Start Single Player (I)" : "Start Single Player", GUILayout.Height(height))) {
+            //   nds.StartSinglePlayer();
+            // }
 
             if (GUILayout.Button(EnableHotkeys ? "Start Shared Client (P)" : "Start Shared Client", GUILayout.Height(height))) {
               if (_isMultiplePeerMode) {
@@ -203,38 +203,38 @@ namespace Fusion {
               }
             }
 
-            if (GUILayout.Button(EnableHotkeys ? "Start Server (S)" : "Start Server", GUILayout.Height(height))) {
-              if (_isMultiplePeerMode) {
-                StartServerWithClients(nds);
-
-              } else {
-                nds.StartServer();
-              }
-            }
-
-            if (GUILayout.Button(EnableHotkeys ? "Start Host (H)" : "Start Host", GUILayout.Height(height))) {
-              if (_isMultiplePeerMode) {
-                StartHostWithClients(nds);
-              } else {
-                nds.StartHost();
-              }
-            }
-
-            if (GUILayout.Button(EnableHotkeys ? "Start Client (C)" : "Start Client", GUILayout.Height(height))) {
-              if (_isMultiplePeerMode) {
-                StartMultipleClients(nds);
-              } else {
-                nds.StartClient();
-              }
-            }
-
-            if (GUILayout.Button(EnableHotkeys ? "Start Auto Host Or Client (A)" : "Start Auto Host Or Client", GUILayout.Height(height))) {
-              if (_isMultiplePeerMode) {
-                StartMultipleAutoClients(nds);
-              } else {
-                nds.StartAutoClient();
-              }
-            }
+            // if (GUILayout.Button(EnableHotkeys ? "Start Server (S)" : "Start Server", GUILayout.Height(height))) {
+            //   if (_isMultiplePeerMode) {
+            //     StartServerWithClients(nds);
+            //
+            //   } else {
+            //     nds.StartServer();
+            //   }
+            // }
+            //
+            // if (GUILayout.Button(EnableHotkeys ? "Start Host (H)" : "Start Host", GUILayout.Height(height))) {
+            //   if (_isMultiplePeerMode) {
+            //     StartHostWithClients(nds);
+            //   } else {
+            //     nds.StartHost();
+            //   }
+            // }
+            //
+            // if (GUILayout.Button(EnableHotkeys ? "Start Client (C)" : "Start Client", GUILayout.Height(height))) {
+            //   if (_isMultiplePeerMode) {
+            //     StartMultipleClients(nds);
+            //   } else {
+            //     nds.StartClient();
+            //   }
+            // }
+            //
+            // if (GUILayout.Button(EnableHotkeys ? "Start Auto Host Or Client (A)" : "Start Auto Host Or Client", GUILayout.Height(height))) {
+            //   if (_isMultiplePeerMode) {
+            //     StartMultipleAutoClients(nds);
+            //   } else {
+            //     nds.StartAutoClient();
+            //   }
+            // }
 
             if (_isMultiplePeerMode) {
 
