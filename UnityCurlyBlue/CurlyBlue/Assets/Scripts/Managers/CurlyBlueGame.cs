@@ -82,7 +82,7 @@ namespace CurlyBlue
 
             CurrentState = newState;
         }
-
+        
         private void SetUpCharacter()
         {
             _camera ??= Instantiate(CameraPrefab, transform).GetComponent<ThirdPersonCamera>();
@@ -92,8 +92,8 @@ namespace CurlyBlue
             _inputReceiver.SetData(_mainNetworkedCharacter.InputData, _camera.Camera);
 
             _mainNetworkedCharacter.GameData.Name        = UIManager.UIData.PlayerName;
-            _mainNetworkedCharacter.GameData.Score       = 0;
             _mainNetworkedCharacter.GameData.HeadCostume = NetworkRunner.LocalPlayer.PlayerId;
+            _mainNetworkedCharacter.GameData.Complete    = false;
             
             SceneManager.MoveGameObjectToScene(_mainNetworkedCharacter.gameObject, SceneManager.GetSceneByBuildIndex(Map.AsIndex));
         }

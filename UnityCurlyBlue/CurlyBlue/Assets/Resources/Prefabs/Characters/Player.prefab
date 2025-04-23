@@ -512,8 +512,8 @@ MonoBehaviour:
   ControlData: {fileID: 1190691952341935607}
   MoveSpeed: 2
   MoveSmoothBase: 2
-  MoveSmoothTime: 0.5
-  RotationSmoothTime: 0.05
+  MoveSmoothTime: 0.7
+  RotationSmoothTime: 0.07
   SprintSpeed: 6
   GroundedOffset: -0.14
   JumpHeight: 1.2

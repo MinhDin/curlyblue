@@ -89,7 +89,7 @@ namespace CurlyBlue
                 
                 // Accelerate
                 var curAccelerate = ControlData.Accelerate;
-                ControlData.Speed = Mathf.SmoothDamp(ControlData.Speed, targetSpeed, ref curAccelerate, MoveSmoothTime);
+                ControlData.Speed      = Mathf.SmoothDamp(ControlData.Speed, targetSpeed, ref curAccelerate, MoveSmoothTime, 500, deltaTime);
                 ControlData.Accelerate = curAccelerate;
             }
             else
@@ -98,7 +98,7 @@ namespace CurlyBlue
             }
 
             // Harder to turn when sprint
-            var rotation = Mathf.SmoothDampAngle(ControlData.RotationY, ControlData.TargetRotationY, ref _rotationVelocity, InputData.Sprint ? RotationSmoothTime * 4 : RotationSmoothTime);
+            var rotation = Mathf.SmoothDampAngle(ControlData.RotationY, ControlData.TargetRotationY, ref _rotationVelocity, InputData.Sprint ? RotationSmoothTime * 3.5f : RotationSmoothTime, 500, deltaTime);
             ControlData.RotationY = rotation;
             if (InputData.MoveWorld != Vector3.zero) ControlData.TargetRotationY = Quaternion.LookRotation(InputData.MoveWorld).eulerAngles.y;
             

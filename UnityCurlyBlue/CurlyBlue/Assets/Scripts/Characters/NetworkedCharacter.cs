@@ -14,10 +14,5 @@ namespace CurlyBlue
 		{
 			Controller.ManualUpdate(Runner.DeltaTime);
 		}
-
-		public override void Spawned()
-		{
-			base.Spawned();
-		}
 	}
 }
