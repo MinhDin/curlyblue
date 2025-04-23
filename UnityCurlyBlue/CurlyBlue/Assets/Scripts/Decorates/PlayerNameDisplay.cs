@@ -12,7 +12,7 @@ namespace CurlyBlue
 		private string _lastDisplayName;
 		private Camera _mainCamera;
 		
-		public void Update()
+		public void LateUpdate()
 		{
 			// Rotate toward camera
 			_mainCamera        ??= Camera.main;
