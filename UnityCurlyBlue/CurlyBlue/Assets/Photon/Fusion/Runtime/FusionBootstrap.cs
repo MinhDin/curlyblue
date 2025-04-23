@@ -339,6 +339,10 @@ namespace Fusion {
       }
     }
     
+    public virtual void StartSharedClient(SceneRef sceneRef) {
+      StartCoroutine(StartWithClients(GameMode.Shared, sceneRef, 1));
+    }
+    
     [EditorButton("Start Auto Host Or Client", EditorButtonVisibility.PlayMode)]
     [DrawIf(nameof(IsShutdown), Hide = true)]
     public virtual void StartAutoClient() {

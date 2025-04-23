@@ -21,7 +21,8 @@ namespace CurlyBlue
 		{
 			if (Escape.action.triggered)
 			{
-				OnOptionClicked();
+				if(Root.activeSelf) OnBackClicked();
+				else OnOptionClicked();
 			}
 		}
 

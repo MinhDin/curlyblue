@@ -1,12 +1,15 @@
 using System;
+using System.Runtime.CompilerServices;
 using Fusion;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 namespace CurlyBlue
 {
     /// <summary> Main game flow </summary>
-    public class CurlyBlueGame : SimulationBehaviour, IPlayerJoined, IPlayerLeft
+    public class CurlyBlueGame : SimulationBehaviour, IPlayerJoined
     {
         public enum State
         {
@@ -15,21 +18,28 @@ namespace CurlyBlue
             InGame,
         }
 
-        public NetworkedCharacter  NetworkedCharacterPrefab;
-        public NetworkRunner       NetworkRunner;
-        public FusionBootstrap     Fusion;
-        public ThirdPersonCamera   CameraPrefab;
-        public InputSystemReceiver CharacterInput;
-        public UIManager           UIManager;
+        [Header("Settings")] 
+        public SceneRef Map;
+
+        public NetworkRunner   NetworkRunner;
+        public FusionBootstrap Fusion;
+        public UIManager       UIManager;
+        public Camera          MainMenuCamera; // Clear buffer when game end 
         
-        [field: SerializeField] public State CurrentState { get; set; }
+        [Header("Prefabs")] 
+        public NetworkedCharacter  NetworkedCharacterPrefab;
+        public ThirdPersonCamera   CameraPrefab;
+        public InputSystemReceiver CharacterInputPrefab;
 
-        private ThirdPersonCamera  _camera;
-        private NetworkedCharacter _mainNetworkedCharacter;
+        [field: SerializeField] public State CurrentState  { get; set; }
 
-        void Start()
+        private ThirdPersonCamera   _camera;
+        private NetworkedCharacter  _mainNetworkedCharacter;
+        private InputSystemReceiver _inputReceiver;
+
+        void Awake()
         {
-            SwitchState(State.MainMenu, true);
+            UIManager.ShowMainMenu();
         }
 
         public void PlayerJoined(PlayerRef player)
@@ -41,53 +51,62 @@ namespace CurlyBlue
                 SwitchState(State.InGame);
             }
         }
-        
-        public void PlayerLeft(PlayerRef player)
-        {
-            // Network error
-            if (player == Runner.LocalPlayer)
-            {
-                SwitchState(State.MainMenu);
-            }
-        }
 
         public void StartGame()
         {
+            SwitchState(State.Connecting);
+
             Fusion.DefaultRoomName = UIManager.UIData.RoomName;
-            Fusion.StartSharedClient();
+            Fusion.StartSharedClient(Map);
         }
-        
+
         public void SwitchState(State newState, bool force = false)
         {
             if (!force && CurrentState == newState) return;
 
             switch (newState)
             {
-                case State.MainMenu: 
-                    Cursor.lockState = CursorLockMode.None;
+                case State.MainMenu:
+                    MainMenuCamera.gameObject.SetActive(true);
                     UIManager.ShowMainMenu();
-                    if (NetworkRunner.IsRunning) NetworkRunner.Disconnect(NetworkRunner.LocalPlayer);
+                    if (Fusion.CurrentStage == FusionBootstrap.Stage.AllConnected) Fusion.Shutdown();
+                    CleanUp();
                     break;
                 case State.Connecting: break;
-                case State.InGame:   
-                    Cursor.lockState = CursorLockMode.Locked;
+                case State.InGame:
+                    MainMenuCamera.gameObject.SetActive(false);
+                    Cursor.lockState       = CursorLockMode.Locked;
                     UIManager.ShowInGameOption();
                     break;
             }
+
             CurrentState = newState;
         }
-        
-        public void SetUpCharacter()
+
+        private void SetUpCharacter()
         {
             _camera ??= Instantiate(CameraPrefab, transform).GetComponent<ThirdPersonCamera>();
             _camera.FollowTarget(_mainNetworkedCharacter.transform, _mainNetworkedCharacter.GetComponent<CharacterInputData>());
 
-            CharacterInput = Instantiate(CharacterInput, _mainNetworkedCharacter.transform).GetComponent<InputSystemReceiver>();
-            CharacterInput.SetData(_mainNetworkedCharacter.InputData, _camera.Camera);
+            _inputReceiver = Instantiate(CharacterInputPrefab, _mainNetworkedCharacter.transform).GetComponent<InputSystemReceiver>();
+            _inputReceiver.SetData(_mainNetworkedCharacter.InputData, _camera.Camera);
 
-            _mainNetworkedCharacter.GameData.Name = UIManager.UIData.PlayerName;
-            _mainNetworkedCharacter.GameData.Score = 0;
+            _mainNetworkedCharacter.GameData.Name        = UIManager.UIData.PlayerName;
+            _mainNetworkedCharacter.GameData.Score       = 0;
             _mainNetworkedCharacter.GameData.HeadCostume = NetworkRunner.LocalPlayer.PlayerId;
+            
+            SceneManager.MoveGameObjectToScene(_mainNetworkedCharacter.gameObject, SceneManager.GetSceneByBuildIndex(Map.AsIndex));
         }
+
+        private void CleanUp()
+        {
+            _mainNetworkedCharacter = null;
+            _inputReceiver          = null;
+            _camera                 = null;
+            
+            if (SceneManager.loadedSceneCount > 1) SceneManager.UnloadSceneAsync(SceneManager.GetSceneByBuildIndex(Map.AsIndex));
+        }
+        
+        public void BackToMainMenu() => SwitchState(State.MainMenu, true);
     }
 }

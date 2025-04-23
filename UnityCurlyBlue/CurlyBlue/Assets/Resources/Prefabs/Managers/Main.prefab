@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5669197219217863129}
   - component: {fileID: 5225315962884601613}
+  - component: {fileID: 927093944725382122}
+  - component: {fileID: 7678595817967931201}
   m_Layer: 0
   m_Name: Main
   m_TagString: Untagged
@@ -44,6 +46,105 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5c24d9468a1f94ab65ea2745c4b5aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterPrefab: {fileID: -4399147774224878577, guid: c0d33df9e86fb0047883ff5dedf5317f, type: 3}
+  Map:
+    RawValue: 2
+  NetworkRunner: {fileID: 7678595817967931201}
+  Fusion: {fileID: 0}
+  UIManager: {fileID: 0}
+  NetworkedCharacterPrefab: {fileID: -4399147774224878577, guid: c0d33df9e86fb0047883ff5dedf5317f, type: 3}
   CameraPrefab: {fileID: 1024636192357939498, guid: f1cb36e750745044eb72cea52a3e2767, type: 3}
+  CharacterInputPrefab: {fileID: 98492469977424609, guid: 7f8048ce3e867294882fe112a371fdae, type: 3}
   <CurrentState>k__BackingField: 0
+--- !u!114 &927093944725382122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286499952814898120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -232609262, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnInput:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInputMissing:
+    m_PersistentCalls:
+      m_Calls: []
+  OnConnectedToServer:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDisconnectedFromServer:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5225315962884601613}
+        m_TargetAssemblyTypeName: CurlyBlue.CurlyBlueGame, Assembly-CSharp
+        m_MethodName: BackToMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnConnectRequest:
+    m_PersistentCalls:
+      m_Calls: []
+  OnConnectFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  PlayerJoined:
+    m_PersistentCalls:
+      m_Calls: []
+  PlayerLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSimulationMessage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnShutdown:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSessionListUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCustomAuthenticationResponse:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHostMigration:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSceneLoadDone:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSceneLoadStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnReliableData:
+    m_PersistentCalls:
+      m_Calls: []
+  OnReliableProgress:
+    m_PersistentCalls:
+      m_Calls: []
+  OnObjectEnterAOI:
+    m_PersistentCalls:
+      m_Calls: []
+  OnObjectExitAOI:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &7678595817967931201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286499952814898120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1199893898, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
