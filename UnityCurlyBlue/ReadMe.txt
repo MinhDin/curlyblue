@@ -16,5 +16,6 @@ III. Tool & Library:
 	1. Core: Photon Fusion 2, Starter Assets - ThirdPerson Unity.
 		- Built upon an existing core, this version of the third-person controller and networking framework has been refined and expanded to align more closely with the project's requirements.
 		- The character system is built around three main data components: CharacterInputData, which stores user inputs; CharacterControlData, which stores movement logic; and CharacterGameData, which stores gameplay-related.
+		- Movement and turn rate have been revised to feel weightier.
 	2. Art: Starter Assets - ThirdPerson Unity, MasterStylizedFX, Customizable 3D Fantasy Characters Vol 2.
 	3. Ultilities: Mobile Console (debug), Dotween.
