@@ -10,15 +10,17 @@ namespace CurlyBlue
         public CharacterController Controller;
         
         [Header("Data")] 
-        public CharacterInputData       InputData;
+        public CharacterInputData InputData;
         public CharacterControlData ControlData;// State of controller
 
         [Header("Settings")] 
         public float MoveSpeed = 2.0f;
-        public float MoveAccelerateSpeed = 10.0f;
-        public float SprintSpeed    = 5.335f;
-        public float GroundedOffset = -0.14f;
-        public float JumpHeight     = 1.2f;
+        public float MoveSmoothBase     = 1.0f;
+        public float MoveSmoothTime     = 1.0f;
+        public float RotationSmoothTime = 0.12f;
+        public float SprintSpeed        = 5.335f;
+        public float GroundedOffset     = -0.14f;
+        public float JumpHeight         = 1.2f;
         
         [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
         public float FallTimeout = 0.15f;
@@ -28,6 +30,7 @@ namespace CurlyBlue
         
         private float _fallTimeoutDelta;
         private float _jumpTimeoutDelta;
+        private float _rotationVelocity;
         
         public void ManualUpdate(float deltaTime)
         {
@@ -78,19 +81,28 @@ namespace CurlyBlue
             
             const float speedOffset = 0.1f;
 
-            if (ControlData.Speed < targetSpeed - speedOffset || ControlData.Speed > targetSpeed + speedOffset)
+            if (Mathf.Abs(targetSpeed - ControlData.Speed) > MoveSmoothBase * deltaTime)
             {
-                // creates curved result rather than a linear one giving a more organic speed change
-                ControlData.Speed = Mathf.Lerp(ControlData.Speed, targetSpeed, deltaTime * MoveAccelerateSpeed);
+                // Creates curved result rather than a linear one giving a more organic speed change
+                // Flat increase
+                ControlData.Speed += Mathf.Sign(targetSpeed - ControlData.Speed) * MoveSmoothBase * deltaTime;
+                
+                // Accelerate
+                var curAccelerate = ControlData.Accelerate;
+                ControlData.Speed = Mathf.SmoothDamp(ControlData.Speed, targetSpeed, ref curAccelerate, MoveSmoothTime);
+                ControlData.Accelerate = curAccelerate;
             }
             else
             {
                 ControlData.Speed = targetSpeed;
             }
+
+            // Harder to turn when sprint
+            var rotation = Mathf.SmoothDampAngle(ControlData.RotationY, ControlData.TargetRotationY, ref _rotationVelocity, InputData.Sprint ? RotationSmoothTime * 4 : RotationSmoothTime);
+            ControlData.RotationY = rotation;
+            if (InputData.MoveWorld != Vector3.zero) ControlData.TargetRotationY = Quaternion.LookRotation(InputData.MoveWorld).eulerAngles.y;
             
-            if (InputData.MoveWorld != Vector3.zero) ControlData.RotationY = Quaternion.LookRotation(InputData.MoveWorld).eulerAngles.y;
-            
-            Controller.Move(InputData.MoveWorld.normalized * (ControlData.Speed * deltaTime) + new Vector3(0.0f, ControlData.SpeedY, 0.0f) * deltaTime);
+            Controller.Move(Quaternion.Euler(0, ControlData.RotationY, 0) * Controller.transform.forward.normalized * (ControlData.Speed * deltaTime) + new Vector3(0.0f, ControlData.SpeedY, 0.0f) * deltaTime);
         }
     }
 }

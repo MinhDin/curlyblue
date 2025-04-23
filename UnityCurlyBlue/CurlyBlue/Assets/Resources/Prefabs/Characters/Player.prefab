@@ -511,8 +511,10 @@ MonoBehaviour:
   InputData: {fileID: 8595501309602864581}
   ControlData: {fileID: 1190691952341935607}
   MoveSpeed: 2
-  MoveAccelerateSpeed: 10
-  SprintSpeed: 5.335
+  MoveSmoothBase: 2
+  MoveSmoothTime: 0.5
+  RotationSmoothTime: 0.05
+  SprintSpeed: 6
   GroundedOffset: -0.14
   JumpHeight: 1.2
   FallTimeout: 0.15
@@ -1848,7 +1850,8 @@ MonoBehaviour:
   _IsGrounded: 0
   _Speed: 0
   _SpeedY: 0
-  _Accelerate: {x: 0, y: 0, z: 0}
+  _Accelerate: 0
+  _TargetRotationY: 0
   _RotationY: 0
 --- !u!114 &8085990789678705757
 MonoBehaviour:

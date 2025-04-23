@@ -999,7 +999,7 @@ MonoBehaviour:
       - m_Target: {fileID: 3136504533605140096}
         m_TargetAssemblyTypeName: CurlyBlue.UIMainMenu, Assembly-CSharp
         m_MethodName: OnRoomNameChange
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1039,7 +1039,7 @@ MonoBehaviour:
   m_RichText: 1
   m_GlobalFontAsset: {fileID: 0}
   m_OnFocusSelectAll: 1
-  m_ResetOnDeActivation: 1
+  m_ResetOnDeActivation: 0
   m_KeepTextSelectionVisible: 0
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 0
@@ -1325,7 +1325,7 @@ MonoBehaviour:
       - m_Target: {fileID: 3136504533605140096}
         m_TargetAssemblyTypeName: CurlyBlue.UIMainMenu, Assembly-CSharp
         m_MethodName: OnPlayerNameChange
-        m_Mode: 5
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1365,7 +1365,7 @@ MonoBehaviour:
   m_RichText: 1
   m_GlobalFontAsset: {fileID: 0}
   m_OnFocusSelectAll: 1
-  m_ResetOnDeActivation: 1
+  m_ResetOnDeActivation: 0
   m_KeepTextSelectionVisible: 0
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 0

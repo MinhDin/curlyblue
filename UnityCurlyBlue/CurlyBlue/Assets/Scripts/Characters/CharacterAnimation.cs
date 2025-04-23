@@ -18,7 +18,7 @@ namespace CurlyBlue
         private int _animIDSpeedY;
         private int _animIDGrounded;
 
-        const   float RotationSmoothTime = 0.12f;
+        const   float RotationSmoothTime = 0.2f;
         private float _rotationVelocity;
         
         void Awake()
